@@ -1,0 +1,98 @@
+<!-- <div class="grid-container">
+  <h1 class="mat-h1">Configuration</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>{{card.test}}</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
+<div class="grid-container">
+  <h1 class="mat-h1">Configuration</h1>
+</div>
+
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats cards">
+  <mat-card fxFlex='50' class="stats">
+    <p>Hyperparams</p>
+    <mat-form-field appearance='fill'>
+      <mat-label>Input</mat-label>
+      <mat-select  placeholder="">
+          <!-- <mat-option *ngFor="let item of this.par" [value]="item.value" (click)="addParams(item.value)" >
+            {{item.value}}
+          </mat-option> -->
+          <mat-option *ngFor="let item of this.par" [value]="item.name" (click)="registerParam(item.name)" >
+            {{item.name}}
+          </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="this.currentParam=='params1'" >
+      <mat-slider thumbLabel [displayWith]="formatLabel" [(ngModel)]="this.valuenum" tickInterval="1000" min="1" max="100000"></mat-slider>
+    </div>
+    <div *ngIf="this.currentParam=='params2'">
+      <mat-form-field appearance="fill">
+        <mat-label>Valeur</mat-label>
+        <input matInput [(ngModel)]="this.valuetxt">
+      </mat-form-field>
+    </div>
+    <div *ngIf="this.currentParam!=undefined" >
+      <button mat-fab (click)="addParams()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+  <table mat-table class="mat-elevation-z8  matable" fxFlex='50' >
+    <ng-container>
+      <thead >
+        <tr>
+          <th mat-header-cell> Param </th>
+          <th mat-header-cell>Option</th>
+          <th mat-header-cell> Delete </th>
+        </tr>
+      </thead>
+      <tbody class="tbl-content" >
+        <tr *ngFor="let item of this.listparams">
+          <td mat-cell> {{item}} </td>
+          <td><mat-select  placeholder="">
+            <mat-option *ngFor="let item of this.par" [value]="item.name" >
+              {{item.name}}
+            </mat-option>
+        </mat-select></td>
+        <td><mat-slide-toggle (change)="getSelected(item)">Slide me!</mat-slide-toggle></td>
+        </tr>
+      </tbody>
+
+        <button mat-fab (click)="deleteParameters()">
+          <mat-icon>delete</mat-icon>
+        </button>
+    </ng-container>
+  </table>
+
+</div>
+<br><br>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <mat-card fxFlex='30' class="stats">
+    <p>Hyperparams</p>
+  </mat-card>
+  <mat-card fxFlex='30' class="stats">
+    <p>Hyperparams</p>
+  </mat-card>
+  <mat-card fxFlex='30' class="stats">
+    <p>Hyperparams</p>
+  </mat-card>
+</div>
